@@ -20,9 +20,9 @@ config/app.php
 ## Execute
 
 ```
-php artisan migrate
-
 php artisan vendor:publish
+
+php artisan migrate
 ```
 
 ## In html pages
