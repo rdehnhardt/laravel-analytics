@@ -16,3 +16,11 @@ config/app.php
 ],
 ...
 ```
+
+## Execute
+
+```
+php artisan migrate
+
+php artisan vendor:publish
+```
