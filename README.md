@@ -6,3 +6,13 @@
 ```
 composer require baconfy/laravel-analytics
 ```
+
+config/app.php
+
+```
+...
+'providers' => [
+    Baconfy\Analytics\Providers\AnalyticsServiceProvider::class,
+],
+...
+```
