@@ -1,6 +1,7 @@
 {
 	"name": "baconfy/laravel-analytics",
 	"type": "library",
+	"license": "MIT",
 	"description": "Analytcs for Laravel",
 	"authors": [
 		{
