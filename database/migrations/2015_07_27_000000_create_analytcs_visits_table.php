@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAnalytcsSessionsTable extends Migration
+class CreateAnalytcsVisitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class CreateAnalytcsSessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('analytcs_sessions', function (Blueprint $table) {
+        Schema::create('analytcs_visits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->string('browser');
-            $table->string('resolution');
+            $table->string('uuid');
             $table->string('ip');
+            $table->string('location');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateAnalytcsSessionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('analytcs_sessions');
+        Schema::drop('analytcs_visits');
     }
 }
