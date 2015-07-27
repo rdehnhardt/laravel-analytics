@@ -20,24 +20,24 @@ config/app.php
 ## Execute
 
 ```
-php artisan vendor:publish
-
 php artisan migrate
+
+php artisan vendor:publish
 ```
 
 ## In html pages
 
 ```
 <script>
-    var _px = _px || [];
+    var _bc = _bc || [];
 
     (function () {
-        var px = document.createElement('script');
-        px.src = '/analytics.js';
-        px.type = 'text/javascript';
-        px.async = true;
+        var bc = document.createElement('script');
+        bc.src = '/analytics.js';
+        bc.type = 'text/javascript';
+        bc.async = true;
         var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(px, s);
+        s.parentNode.insertBefore(bc, s);
     })();
 </script>
 ```
@@ -74,7 +74,7 @@ Hora,Visitas,Únicas
 ## Using HighCharts
 
 ```
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="container" style="min-width: 310bc; height: 400bc; margin: 0 auto"></div>
 
 <script>
     $(function () {
