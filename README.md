@@ -92,4 +92,4 @@ Hora,Visitas,Únicas
 </script>
 ```
 
-![alt text](https://raw.githubusercontent.com/laravel-analytics/screenshot.png "ScreenShot")
+![alt text](https://raw.githubusercontent.com/baconfy/laravel-analytics/master/screenshot.png "ScreenShot")
