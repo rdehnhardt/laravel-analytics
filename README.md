@@ -70,3 +70,24 @@ Hora,Visitas,Únicas
 13:00,15,1
 14:00,15,1
 ```
+
+## Using HighCharts
+
+```
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script>
+    $(function () {
+        $.ajax({url: "/analytics/visits/2015-07-27/2015-07-27"}).done(function (csv) {
+            $('#container').highcharts({
+                data: {csv: csv},
+                title: {text: 'Relatório de visitas'},
+                subtitle: {text: 'Source: Analytics'},
+                tooltip: {shared: true},
+                yAxis: { allowDecimals: false },
+                plotOptions: {column: {stacking: 'normal'}}
+            });
+        });
+    });
+</script>
+```
