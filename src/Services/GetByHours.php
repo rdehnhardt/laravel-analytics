@@ -9,11 +9,11 @@ class GetByHours
 {
 
     /**
-     * @param Cardon $startDate
-     * @param Cardon $endDate
+     * @param Carbon $startDate
+     * @param Carbon $endDate
      * @return mixed
      */
-    public static function key(Cardon $startDate, Cardon $endDate)
+    public static function key(Carbon $startDate, Carbon $endDate)
     {
         $hours = $startDate->diffInHours($endDate);
 
@@ -31,24 +31,24 @@ class GetByHours
     }
 
     /**
-     * @param Cardon $startDate
-     * @param Cardon $endDate
+     * @param Carbon $startDate
+     * @param Carbon $endDate
      * @return mixed
      */
-    public static function title(Cardon $startDate, Cardon $endDate)
+    public static function title(Carbon $startDate, Carbon $endDate)
     {
         $hours = $startDate->diffInHours($endDate);
 
         if ($hours <= 24) {
-            return trans('analytics.hour');
+            return trans('analytics::messages.hour');
         }
 
         if ($hours > 24 && $hours <= 720) {
-            return trans('analytics.day');
+            return trans('analytics::messages.day');
         }
 
         if ($hours > 720) {
-            return trans('analytics.month');
+            return trans('analytics::messages.month');
         }
     }
 

@@ -3,38 +3,25 @@
 namespace Baconfy\Analytics\Services\Visits;
 
 use Baconfy\Analytics\Services\GetByHours;
-use Baconfy\Analytics\Services\GetKeyByHours;
+use Carbon\Carbon;
 use DB;
 
 class GetVisitByPeriod
 {
-    /**
-     * @var DB
-     */
-    private $db;
 
     /**
-     * @param DB $db
-     */
-    public function __construct(DB $db)
-    {
-        $this->db = $db;
-    }
-
-
-    /**
-     * @param Cardon $startDate
-     * @param Cardon $endDate
+     * @param Carbon $startDate
+     * @param Carbon $endDate
      * @return mixed
      */
-    public function fire(Cardon $startDate, Cardon $endDate)
+    public function fire(Carbon $startDate, Carbon $endDate)
     {
+        $output[] = [GetByHours::title($startDate, $endDate), trans('analytics::messages.visits'), trans('analytics::messages.unique')];
         $visits = $this->getData($startDate, $endDate);
-        $output[] = [GetByHours::title($startDate, $endDate), trans('analytics.visits'), trans('analytics.unique')];
 
         if (count($visits)) {
             foreach ($visits as $visit) {
-                $output[] = [$visit['key'], $visit['visits'], $visit['uniques']];
+                $output[] = [$visit->key, $visit->total, $visit->uniques];
             }
         }
 
@@ -42,17 +29,17 @@ class GetVisitByPeriod
     }
 
     /**
-     * @param Cardon $startDate
-     * @param Cardon $endDate
+     * @param Carbon $startDate
+     * @param Carbon $endDate
      * @return mixed
      */
-    private function getData(Cardon $startDate, Cardon $endDate)
+    private function getData(Carbon $startDate, Carbon $endDate)
     {
-        $key = GetKeyByHours::key($startDate, $endDate);
+        $key = GetByHours::key($startDate, $endDate);
 
-        $Select = $this->db->table('analytcs_visits')->select(
+        $Select = DB::table('analytcs_visits')->select(
             DB::raw("date_format(created_at, '$key') as `key`"),
-            DB::raw("count(uuid) as visits"),
+            DB::raw("count(uuid) as total"),
             DB::raw("count(distinct uuid) as uniques")
         );
 

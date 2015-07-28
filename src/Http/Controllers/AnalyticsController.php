@@ -5,10 +5,10 @@ namespace Baconfy\Analytics\Http\Controllers;
 use Baconfy\Analytics\Services\GetParams;
 use Baconfy\Analytics\Services\Visits\CreateVisit;
 use Baconfy\Analytics\Services\Visits\GetVisitByPeriod;
-use Illuminate\Routing\Controller as BaseController;
 use Carbon\Carbon;
-use Request;
 use DB;
+use Illuminate\Routing\Controller as BaseController;
+use Request;
 
 class AnalyticsController extends BaseController
 {
@@ -32,7 +32,16 @@ class AnalyticsController extends BaseController
      */
     public function visitsByPeriod($startDate, $endDate, GetVisitByPeriod $getVisitByPeriod)
     {
-        return $getVisitByPeriod->fire(Carbon::createFromFormat('Y-m-d', $startDate), Carbon::createFromFormat('Y-m-d', $endDate));
+        $startDate = Carbon::createFromFormat('Y-m-d', $startDate);
+        $endDate = Carbon::createFromFormat('Y-m-d', $endDate);
+
+        $lines = $getVisitByPeriod->fire($startDate, $endDate);
+
+        if (count($lines)) {
+            foreach ($lines as $line) {
+                echo implode(',', $line) . "\n";
+            }
+        }
     }
 
 }

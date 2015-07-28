@@ -7,18 +7,6 @@ use DB;
 
 class CreateVisit
 {
-    /**
-     * @var DB
-     */
-    private $db;
-
-    /**
-     * @param DB $db
-     */
-    public function __construct(DB $db)
-    {
-        $this->db = $db;
-    }
 
     /**
      * @param $uuid
@@ -28,7 +16,7 @@ class CreateVisit
      */
     public function fire($uuid, $ip, $location)
     {
-        return $this->db->table('analytcs_visits')->insert([
+        return DB::table('analytcs_visits')->insert([
             'uuid' => $uuid,
             'location' => $location,
             'ip' => $ip,
