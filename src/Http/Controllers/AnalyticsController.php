@@ -2,13 +2,27 @@
 
 namespace Baconfy\Analytics\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
+use Baconfy\Analytics\Services\Visits;
 use Carbon\Carbon;
-use Request;
 use DB;
+use Illuminate\Routing\Controller as BaseController;
+use Request;
 
 class AnalyticsController extends BaseController
 {
+
+    /**
+     * @var Visits
+     */
+    private $visits;
+
+    /**
+     * @param Visits $visits
+     */
+    public function __construct(Visits $visits)
+    {
+        $this->visits = $visits;
+    }
 
     public function visit()
     {
@@ -25,25 +39,7 @@ class AnalyticsController extends BaseController
 
     public function visitsByPeriod($startDate, $endDate)
     {
-        $key = DB::raw($this->getKey($startDate, $endDate));
-        $visits = DB::raw("count(id) as visits");
-        $unique = DB::raw("count(distinct uuid) as uniques");
-
-        $visits = DB::table('analytcs_visits')
-            ->select($key, $visits, $unique)
-            ->where('created_at', '>=', "$startDate 00:00:00")
-            ->where('created_at', '<=', "$endDate 23:59:59")
-            ->groupBy('key')
-            ->get();
-
-        if (count($visits)) {
-            $output = fopen("php://output", 'w') or die("Can't open php://output");
-            fputcsv($output, array($this->getLabel($startDate, $endDate), 'Visitas', 'Únicas'));
-
-            foreach ($visits as $visit) {
-                fputcsv($output, [$visit->key, $visit->visits, $visit->uniques]);
-            }
-        }
+        return $this->visits->getVisits(Carbon::createFromFormat('Y-m-d', $startDate), Carbon::createFromFormat('Y-m-d', $endDate));
     }
 
     private function getParams($q)
@@ -60,48 +56,6 @@ class AnalyticsController extends BaseController
         }
 
         return $params;
-    }
-
-    private function getKey($startDate, $endDate)
-    {
-        $Start = Carbon::createFromFormat('Y-m-d', $startDate);
-        $End = Carbon::createFromFormat('Y-m-d', $endDate);
-
-        $DiffInDays = $Start->diffInDays($End);
-        $DiffInMonths = $Start->diffInMonths($End);
-
-        if ($DiffInDays <= 1) {
-            return "date_format(created_at, '%H:00') as `key`";
-        }
-
-        if ($DiffInDays > 1 && $DiffInMonths < 1) {
-            return "date_format(created_at, '%d') as `key`";
-        }
-
-        if ($DiffInMonths >= 1) {
-            return "date_format(created_at, '%m') as `key`";
-        }
-    }
-
-    private function getLabel($startDate, $endDate)
-    {
-        $Start = Carbon::createFromFormat('Y-m-d', $startDate);
-        $End = Carbon::createFromFormat('Y-m-d', $endDate);
-
-        $DiffInDays = $Start->diffInDays($End);
-        $DiffInMonths = $Start->diffInMonths($End);
-
-        if ($DiffInDays <= 1) {
-            return "Hora";
-        }
-
-        if ($DiffInDays > 1 && $DiffInMonths < 1) {
-            return "Dia";
-        }
-
-        if ($DiffInMonths >= 1) {
-            return "Mês";
-        }
     }
 
 }

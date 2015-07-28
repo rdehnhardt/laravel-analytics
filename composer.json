@@ -21,6 +21,9 @@
 		"classmap": [
 			"database"
 		],
+		"files": [
+			"src/Support/helpers.php"
+		],
 		"psr-4": {
 			"Baconfy\\Analytics\\": "src/"
 		}
