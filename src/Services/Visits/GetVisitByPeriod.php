@@ -24,6 +24,33 @@ class GetVisitByPeriod
      * @param Carbon $endDate
      * @return mixed
      */
+    public function csv(Carbon $startDate, Carbon $endDate)
+    {
+        $data = $this->getData($startDate, $endDate);
+
+        $lines[] = [GetByHours::title($startDate, $endDate), trans('analytics::messages.visits'), trans('analytics::messages.unique')];
+
+        if (count($data)) {
+            foreach ($data as $record) {
+                $lines[] = get_object_vars($record);
+            }
+        }
+
+        $output = '';
+        if (count($lines)) {
+            foreach ($lines as $line) {
+                $output .= implode(',', $line) . "\n";
+            }
+        }
+
+        return $output;
+    }
+
+    /**
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     * @return mixed
+     */
     private function getData(Carbon $startDate, Carbon $endDate)
     {
         $key = GetByHours::key($startDate, $endDate);
