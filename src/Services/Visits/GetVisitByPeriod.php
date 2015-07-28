@@ -16,16 +16,7 @@ class GetVisitByPeriod
      */
     public function fire(Carbon $startDate, Carbon $endDate)
     {
-        $output[] = [GetByHours::title($startDate, $endDate), trans('analytics::messages.visits'), trans('analytics::messages.unique')];
-        $visits = $this->getData($startDate, $endDate);
-
-        if (count($visits)) {
-            foreach ($visits as $visit) {
-                $output[] = [$visit->key, $visit->total, $visit->uniques];
-            }
-        }
-
-        return $output;
+        return $this->getData($startDate, $endDate);
     }
 
     /**

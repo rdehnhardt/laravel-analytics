@@ -35,13 +35,7 @@ class AnalyticsController extends BaseController
         $startDate = Carbon::createFromFormat('Y-m-d', $startDate);
         $endDate = Carbon::createFromFormat('Y-m-d', $endDate);
 
-        $lines = $getVisitByPeriod->fire($startDate, $endDate);
-
-        if (count($lines)) {
-            foreach ($lines as $line) {
-                echo implode(',', $line) . "\n";
-            }
-        }
+        return $getVisitByPeriod->fire($startDate, $endDate);
     }
 
 }
