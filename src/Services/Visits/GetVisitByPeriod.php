@@ -8,6 +8,11 @@ use DB;
 
 class GetVisitByPeriod
 {
+    private $data;
+
+    private $start;
+
+    private $end;
 
     /**
      * @param Carbon $startDate
@@ -16,30 +21,45 @@ class GetVisitByPeriod
      */
     public function fire(Carbon $startDate, Carbon $endDate)
     {
-        return $this->getData($startDate, $endDate);
+        $this->start = $startDate;
+        $this->end = $endDate;
+
+        return $this->getData();
     }
 
-    /**
-     * @param Carbon $startDate
-     * @param Carbon $endDate
-     * @return mixed
-     */
-    public function csv(Carbon $startDate, Carbon $endDate)
+    public function getLabels()
     {
-        $data = $this->getData($startDate, $endDate);
+        $output = [];
 
-        $lines[] = [GetByHours::title($startDate, $endDate), trans('analytics::messages.visits'), trans('analytics::messages.unique')];
-
-        if (count($data)) {
-            foreach ($data as $record) {
-                $lines[] = get_object_vars($record);
+        if ($this->data) {
+            foreach ($this->data as $row) {
+                $output[] = $row->key;
             }
         }
 
-        $output = '';
-        if (count($lines)) {
-            foreach ($lines as $line) {
-                $output .= implode(',', $line) . "\n";
+        return $output;
+    }
+
+    public function getTotal()
+    {
+        $output = [];
+
+        if ($this->data) {
+            foreach ($this->data as $row) {
+                $output[] = $row->total;
+            }
+        }
+
+        return $output;
+    }
+
+    public function getUniques()
+    {
+        $output = [];
+
+        if ($this->data) {
+            foreach ($this->data as $row) {
+                $output[] = $row->uniques;
             }
         }
 
@@ -47,13 +67,11 @@ class GetVisitByPeriod
     }
 
     /**
-     * @param Carbon $startDate
-     * @param Carbon $endDate
      * @return mixed
      */
-    private function getData(Carbon $startDate, Carbon $endDate)
+    private function getData()
     {
-        $key = GetByHours::key($startDate, $endDate);
+        $key = GetByHours::key($this->start, $this->end);
 
         $Select = DB::table('analytcs_visits')->select(
             DB::raw("date_format(created_at, '$key') as `key`"),
@@ -61,11 +79,13 @@ class GetVisitByPeriod
             DB::raw("count(distinct uuid) as uniques")
         );
 
-        $Select->where('created_at', '>=', "$startDate 00:00:00");
-        $Select->where('created_at', '<=', "$endDate 23:59:59");
+        $Select->where('created_at', '>=', "{$this->start} 00:00:00");
+        $Select->where('created_at', '<=', "{$this->end} 23:59:59");
         $Select->groupBy('key');
 
-        return $Select->get();
+        $this->data = $Select->get();
+
+        return $this->data;
     }
 
 }
