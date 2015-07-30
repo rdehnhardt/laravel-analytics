@@ -25,8 +25,12 @@ class GetByHours
             return '%d';
         }
 
-        if ($hours > 720) {
+        if ($hours > 720 && $hours <= 8766) {
             return '%m/%Y';
+        }
+
+        if ($hours > 8766) {
+            return '%Y';
         }
     }
 
@@ -47,8 +51,12 @@ class GetByHours
             return trans('analytics::messages.day');
         }
 
-        if ($hours > 720) {
+        if ($hours > 720 && $hours <= 8766) {
             return trans('analytics::messages.month');
+        }
+
+        if ($hours > 8766) {
+            return trans('analytics::messages.year');
         }
     }
 
