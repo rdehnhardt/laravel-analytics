@@ -21,11 +21,11 @@ class GetByHours
             return '%H:00';
         }
 
-        if ($hours > 24 && $hours <= 720) {
+        if ($hours > 24 && $hours <= 744) {
             return '%d';
         }
 
-        if ($hours > 720 && $hours <= 8766) {
+        if ($hours > 744 && $hours <= 8766) {
             return '%m/%Y';
         }
 
