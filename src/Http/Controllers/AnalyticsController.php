@@ -21,7 +21,7 @@ class AnalyticsController extends BaseController
     {
         $params = $getParams->build(Request::get('q'));
 
-        $createVisit->fire($params['uuid'], $_SERVER['REMOTE_ADDR'], $params['location'], $params['referer']);
+        $createVisit->fire($params['uuid'], $_SERVER['REMOTE_ADDR'], $params['location'], $params['referrer']);
     }
 
     /**

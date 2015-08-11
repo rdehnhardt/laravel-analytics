@@ -12,16 +12,16 @@ class CreateVisit
      * @param $uuid
      * @param $ip
      * @param $location
-     * @param $referer
+     * @param $referrer
      * @return mixed
      */
-    public function fire($uuid, $ip, $location, $referer)
+    public function fire($uuid, $ip, $location, $referrer)
     {
         return DB::table('analytcs_visits')->insert([
             'uuid' => $uuid,
             'location' => $location,
             'ip' => $ip,
-            'referer' => $referer,
+            'referrer' => $referrer,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

@@ -95,7 +95,7 @@ var analytcs = {
     },
 
     ping: function () {
-        this.app.push(['referer', document.referrer]);
+        this.app.push(['referrer', document.referrer]);
         this.app.push(['location', location.href]);
         this.app.push(['uuid', this.user]);
 
