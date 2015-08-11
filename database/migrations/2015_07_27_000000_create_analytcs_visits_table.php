@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAnalytcsVisitsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -31,4 +32,5 @@ class CreateAnalytcsVisitsTable extends Migration
     {
         Schema::drop('analytcs_visits');
     }
+
 }

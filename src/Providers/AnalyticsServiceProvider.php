@@ -15,7 +15,6 @@ class AnalyticsServiceProvider extends ServiceProvider
     {
         $this->publishes([__DIR__ . '/../../database/migrations/' => database_path('migrations')], 'migrations');
         $this->publishes([__DIR__ . '/../../resources/assets' => public_path()], 'public');
-
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'analytics');
 
         if (!$this->app->routesAreCached()) {

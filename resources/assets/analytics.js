@@ -103,6 +103,7 @@ var analytcs = {
         Request.open("GET", this.endPoint + '?q=' + JSON.stringify(this.app), true);
         Request.send();
     }
+
 }
 
 analytcs.init(_bc);
