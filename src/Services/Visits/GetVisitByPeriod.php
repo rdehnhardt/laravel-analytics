@@ -17,12 +17,13 @@ class GetVisitByPeriod
     /**
      * @param Carbon $startDate
      * @param Carbon $endDate
+     *
      * @return mixed
      */
     public function fire(Carbon $startDate, Carbon $endDate)
     {
         $this->start = $startDate;
-        $this->end = $endDate;
+        $this->end   = $endDate;
 
         return $this->getData();
     }
@@ -73,7 +74,7 @@ class GetVisitByPeriod
     {
         $key = GetByHours::key($this->start, $this->end);
 
-        $Select = DB::table('analytcs_visits')->select(
+        $Select = DB::table($this->getTable())->select(
             DB::raw("date_format(created_at, '$key') as `key`"),
             DB::raw("count(uuid) as total"),
             DB::raw("count(distinct uuid) as uniques")
@@ -88,4 +89,11 @@ class GetVisitByPeriod
         return $this->data;
     }
 
+    /**
+     * @return string
+     */
+    protected function getTable()
+    {
+        return config('analytics.visits_table', 'analytics_visits');
+    }
 }
