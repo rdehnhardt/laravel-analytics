@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visit extends Model
 {
+    protected $fillable = ['uuid', 'location', 'ip', 'referrer',];
+
     /**
      * @return string
      */

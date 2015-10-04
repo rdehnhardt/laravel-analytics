@@ -2,38 +2,49 @@
 
 namespace Baconfy\Analytics\Services\Visits;
 
-use Carbon\Carbon;
-use DB;
+use Baconfy\Analytics\Models\Visit;
 
 class CreateVisit
 {
 
     /**
-     * @param $uuid
-     * @param $ip
-     * @param $location
-     * @param $referrer
+     * @param string $uuid
+     * @param string $ip
+     * @param string $location
+     * @param string $referrer
+     * @param array  $extra
      *
      * @return mixed
      */
-    public function fire($uuid, $ip, $location, $referrer)
+    public function fire($uuid, $ip, $location, $referrer, array $extra = [])
     {
-        return DB::table($this->getTable())->insert([
-            'uuid'       => $uuid,
-            'location'   => $location,
-            'ip'         => $ip,
-            'referrer'   => $referrer,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
+        $visit = $this->factoryVisit($uuid, $ip, $location, $referrer, $extra);
+
+        $visit->save();
     }
 
     /**
-     * @return string
+     * @param string $uuid
+     * @param string $ip
+     * @param string $location
+     * @param string $referrer
+     * @param array  $extra
+     *
+     * @return Visit
      */
-    public function getTable()
+    protected function factoryVisit($uuid, $ip, $location, $referrer, array $extra = [])
     {
-        return config('analytics.visits_table', 'analytics_visits');
-    }
+        $data = array_merge([
+            'uuid'     => $uuid,
+            'location' => $location,
+            'ip'       => $ip,
+            'referrer' => $referrer,
+        ], $extra);
 
+        $visit = app()->make(config('analytics.model', Visit::class));
+
+        $visit->fill($data);
+
+        return $visit;
+    }
 }

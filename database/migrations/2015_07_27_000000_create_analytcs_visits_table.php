@@ -21,10 +21,12 @@ class CreateAnalytcsVisitsTable extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uuid');
+
+            $table->string('uuid')->index();
             $table->string('ip');
             $table->string('location');
             $table->string('referrer');
+
             $table->timestamps();
         });
     }
@@ -38,5 +40,4 @@ class CreateAnalytcsVisitsTable extends Migration
     {
         Schema::drop($this->table);
     }
-
 }
