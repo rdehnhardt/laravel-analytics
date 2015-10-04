@@ -22,7 +22,7 @@ class AnalyticsServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/analytics.php', 'analytics'
         );
 
-        if (!$this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached() && config('analytics.default_routes', true)) {
             require __DIR__ . '/../Http/routes.php';
         }
     }

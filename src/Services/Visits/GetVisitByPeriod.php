@@ -28,6 +28,9 @@ class GetVisitByPeriod
         return $this->getData();
     }
 
+    /**
+     * @return array
+     */
     public function getLabels()
     {
         $output = [];
@@ -41,6 +44,9 @@ class GetVisitByPeriod
         return $output;
     }
 
+    /**
+     * @return array
+     */
     public function getTotal()
     {
         $output = [];
