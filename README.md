@@ -3,13 +3,13 @@
 
 ## How to install
 
-```
+```shell
 composer require baconfy/laravel-analytics
 ```
 
 config/app.php
 
-```
+```php
 ...
 'providers' => [
     Baconfy\Analytics\Providers\AnalyticsServiceProvider::class,
@@ -19,7 +19,7 @@ config/app.php
 
 ## Execute
 
-```
+```shell
 php artisan migrate
 
 php artisan vendor:publish
@@ -27,7 +27,7 @@ php artisan vendor:publish
 
 ## In html pages
 
-```
+```html
 <script>
     var _bc = _bc || [];
 
@@ -73,7 +73,7 @@ Hora,Visitas,Únicas
 
 ## Using HighCharts
 
-```
+```html
 <div id="container" style="min-width: 310bc; height: 400bc; margin: 0 auto"></div>
 
 <script>
