@@ -5,6 +5,12 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAnalytcsVisitsTable extends Migration
 {
+    private $table;
+
+    public function __construct()
+    {
+        $this->table = config('analytics.visits_table', 'analytics_visits');
+    }
 
     /**
      * Run the migrations.
@@ -13,12 +19,14 @@ class CreateAnalytcsVisitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('analytcs_visits', function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uuid');
+
+            $table->string('uuid')->index();
             $table->string('ip');
             $table->string('location');
             $table->string('referrer');
+
             $table->timestamps();
         });
     }
@@ -30,7 +38,6 @@ class CreateAnalytcsVisitsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('analytcs_visits');
+        Schema::drop($this->table);
     }
-
 }

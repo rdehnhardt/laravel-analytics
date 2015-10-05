@@ -6,34 +6,48 @@ use Baconfy\Analytics\Services\GetParams;
 use Baconfy\Analytics\Services\Visits\CreateVisit;
 use Baconfy\Analytics\Services\Visits\GetVisitByPeriod;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Routing\Controller as BaseController;
-use Request;
 
 class AnalyticsController extends BaseController
 {
 
-    /**
-     * @param CreateVisit $createVisit
-     * @param GetParams $getParams
-     */
-    public function visit(CreateVisit $createVisit, GetParams $getParams)
+    public function __construct()
     {
-        $params = $getParams->build(Request::get('q'));
+        $middlewares = config('analytics.controller_middleware', []);
 
-        $createVisit->fire($params['uuid'], $_SERVER['REMOTE_ADDR'], $params['location'], $params['referrer']);
+        foreach ($middlewares as $middleware => $options) {
+            $this->middleware($middleware, $options);
+        }
     }
 
     /**
-     * @param $startDate
-     * @param $endDate
+     * @param CreateVisit $createVisit
+     * @param GetParams   $getParams
+     *
+     * @return void
+     */
+    public function visit(CreateVisit $createVisit, GetParams $getParams)
+    {
+        $params = $getParams->build(request('q'));
+
+        $uuid     = array_get($params, 'uuid');
+        $location = array_get($params, 'location');
+        $referrer = array_get($params, 'referrer');
+
+        $createVisit->fire($uuid, $_SERVER['REMOTE_ADDR'], $location, $referrer);
+    }
+
+    /**
+     * @param string           $startDate
+     * @param string           $endDate
      * @param GetVisitByPeriod $getVisitByPeriod
+     *
      * @return mixed
      */
     public function visitsByPeriod($startDate, $endDate, GetVisitByPeriod $getVisitByPeriod)
     {
         $startDate = Carbon::createFromFormat('Y-m-d', $startDate);
-        $endDate = Carbon::createFromFormat('Y-m-d', $endDate);
+        $endDate   = Carbon::createFromFormat('Y-m-d', $endDate);
 
         return $getVisitByPeriod->csv($startDate, $endDate);
     }

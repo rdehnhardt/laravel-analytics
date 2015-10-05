@@ -18,9 +18,6 @@
 		"phpspec/phpspec": "~2.1"
 	},
 	"autoload": {
-		"classmap": [
-			"database"
-		],
 		"files": [
 			"src/Support/helpers.php"
 		],
@@ -28,5 +25,5 @@
 			"Baconfy\\Analytics\\": "src/"
 		}
 	},
-	"minimum-stability": "dev"
+	"minimum-stability": "stable"
 }

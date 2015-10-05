@@ -2,9 +2,6 @@
 
 namespace Baconfy\Analytics\Services;
 
-use Carbon\Carbon;
-use DB;
-
 class GetParams
 {
 

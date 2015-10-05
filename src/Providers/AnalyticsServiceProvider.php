@@ -14,10 +14,15 @@ class AnalyticsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([__DIR__ . '/../../database/migrations/' => database_path('migrations')], 'migrations');
+        $this->publishes([__DIR__ . '/../../config/analytics.php' => config_path('analytics.php')], 'config');
         $this->publishes([__DIR__ . '/../../resources/assets' => public_path()], 'public');
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'analytics');
 
-        if (!$this->app->routesAreCached()) {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../config/analytics.php', 'analytics'
+        );
+
+        if (!$this->app->routesAreCached() && config('analytics.default_routes', true)) {
             require __DIR__ . '/../Http/routes.php';
         }
     }
