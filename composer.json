@@ -1,29 +1,30 @@
 {
-	"name": "baconfy/laravel-analytics",
-	"type": "library",
-	"license": "MIT",
-	"description": "Analytcs for Laravel",
-	"authors": [
-		{
-			"name": "Renato Dehnhardt",
-			"email": "renato@fullsystem.com.br"
-		}
-	],
-	"require": {
-		"php": ">=5.5.0",
-		"nesbot/carbon": "~1.0"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "~4.0",
-		"phpspec/phpspec": "~2.1"
-	},
-	"autoload": {
-		"files": [
-			"src/Support/helpers.php"
-		],
-		"psr-4": {
-			"Baconfy\\Analytics\\": "src/"
-		}
-	},
-	"minimum-stability": "stable"
+  "name": "baconfy/laravel-analytics",
+  "type": "library",
+  "license": "MIT",
+  "description": "Analytcs for Laravel",
+  "authors": [
+    {
+      "name": "Renato Dehnhardt",
+      "email": "renato@fullsystem.com.br"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "nesbot/carbon": "~1.0",
+    "illuminate/support": "~5.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "phpspec/phpspec": "~2.1"
+  },
+  "autoload": {
+    "files": [
+      "src/Support/helpers.php"
+    ],
+    "psr-4": {
+      "Baconfy\\Analytics\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
 }
