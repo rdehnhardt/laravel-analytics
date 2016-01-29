@@ -10,7 +10,6 @@ use Illuminate\Routing\Controller as BaseController;
 
 class AnalyticsController extends BaseController
 {
-
     public function __construct()
     {
         $middlewares = config('analytics.controller_middleware', []);
@@ -22,7 +21,7 @@ class AnalyticsController extends BaseController
 
     /**
      * @param CreateVisit $createVisit
-     * @param GetParams   $getParams
+     * @param GetParams $getParams
      *
      * @return void
      */
@@ -30,7 +29,7 @@ class AnalyticsController extends BaseController
     {
         $params = $getParams->build(request('q'));
 
-        $uuid     = array_get($params, 'uuid');
+        $uuid = array_get($params, 'uuid');
         $location = array_get($params, 'location');
         $referrer = array_get($params, 'referrer');
 
@@ -38,8 +37,8 @@ class AnalyticsController extends BaseController
     }
 
     /**
-     * @param string           $startDate
-     * @param string           $endDate
+     * @param string $startDate
+     * @param string $endDate
      * @param GetVisitByPeriod $getVisitByPeriod
      *
      * @return mixed
@@ -47,9 +46,16 @@ class AnalyticsController extends BaseController
     public function visitsByPeriod($startDate, $endDate, GetVisitByPeriod $getVisitByPeriod)
     {
         $startDate = Carbon::createFromFormat('Y-m-d', $startDate);
-        $endDate   = Carbon::createFromFormat('Y-m-d', $endDate);
+        $endDate = Carbon::createFromFormat('Y-m-d', $endDate);
 
         return $getVisitByPeriod->csv($startDate, $endDate);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return view('analytics::file');
+    }
 }
