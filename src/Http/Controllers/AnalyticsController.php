@@ -48,7 +48,7 @@ class AnalyticsController extends BaseController
         $startDate = Carbon::createFromFormat('Y-m-d', $startDate);
         $endDate = Carbon::createFromFormat('Y-m-d', $endDate);
 
-        return $getVisitByPeriod->csv($startDate, $endDate);
+        return $getVisitByPeriod->fire($startDate, $endDate);
     }
 
     /**
