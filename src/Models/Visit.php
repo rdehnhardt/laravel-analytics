@@ -1,6 +1,6 @@
 <?php
 
-namespace Baconfy\Analytics\Models;
+namespace Rdehnhardt\Analytics\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

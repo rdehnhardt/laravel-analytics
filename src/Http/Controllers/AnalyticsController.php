@@ -1,10 +1,10 @@
 <?php
 
-namespace Baconfy\Analytics\Http\Controllers;
+namespace Rdehnhardt\Analytics\Http\Controllers;
 
-use Baconfy\Analytics\Services\GetParams;
-use Baconfy\Analytics\Services\Visits\CreateVisit;
-use Baconfy\Analytics\Services\Visits\GetVisitByPeriod;
+use Rdehnhardt\Analytics\Services\GetParams;
+use Rdehnhardt\Analytics\Services\Visits\CreateVisit;
+use Rdehnhardt\Analytics\Services\Visits\GetVisitByPeriod;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller as BaseController;
 

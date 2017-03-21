@@ -1,8 +1,8 @@
 <?php
 
-namespace Baconfy\Analytics\Services\Visits;
+namespace Rdehnhardt\Analytics\Services\Visits;
 
-use Baconfy\Analytics\Services\GetByHours;
+use Rdehnhardt\Analytics\Services\GetByHours;
 use Carbon\Carbon;
 use DB;
 

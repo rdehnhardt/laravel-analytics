@@ -1,6 +1,6 @@
 <?php
 
-namespace Baconfy\Analytics\Services;
+namespace Rdehnhardt\Analytics\Services;
 
 use Carbon\Carbon;
 

@@ -12,7 +12,7 @@ config/app.php
 ```php
 ...
 'providers' => [
-    Baconfy\Analytics\Providers\AnalyticsServiceProvider::class,
+    Rdehnhardt\Analytics\Providers\AnalyticsServiceProvider::class,
 ],
 ...
 ```
@@ -92,4 +92,4 @@ Hora,Visitas,Únicas
 </script>
 ```
 
-![alt text](https://raw.githubusercontent.com/baconfy/laravel-analytics/master/screenshot.png "ScreenShot")
+![alt text](https://raw.githubusercontent.com/rdehnhardt/laravel-analytics/master/screenshot.png "ScreenShot")

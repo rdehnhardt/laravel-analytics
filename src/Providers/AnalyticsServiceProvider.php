@@ -1,6 +1,6 @@
 <?php
 
-namespace Baconfy\Analytics\Providers;
+namespace Rdehnhardt\Analytics\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

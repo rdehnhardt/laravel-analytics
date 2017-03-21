@@ -1,8 +1,8 @@
 <?php
 
-namespace Baconfy\Analytics\Services\Visits;
+namespace Rdehnhardt\Analytics\Services\Visits;
 
-use Baconfy\Analytics\Models\Visit;
+use Rdehnhardt\Analytics\Models\Visit;
 
 class CreateVisit
 {

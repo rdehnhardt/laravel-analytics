@@ -10,7 +10,7 @@ if (!function_exists('get_visits')) {
      */
     function get_visits($startDate, $endDate)
     {
-        $Visits = app()->make(\Baconfy\Analytics\Services\Visits\GetVisitByPeriod::class);
+        $Visits = app()->make(\Rdehnhardt\Analytics\Services\Visits\GetVisitByPeriod::class);
 
         return $Visits->fire(Carbon::createFromFormat('Y-m-d', $startDate), Carbon::createFromFormat('Y-m-d', $endDate));
     }

@@ -1,12 +1,12 @@
 {
-  "name": "baconfy/laravel-analytics",
+  "name": "rdehnhardt/laravel-analytics",
   "type": "library",
   "license": "MIT",
   "description": "Analytcs for Laravel",
   "authors": [
     {
       "name": "Renato Dehnhardt",
-      "email": "renato@fullsystem.com.br"
+      "email": "renatotkd@gmail.com"
     }
   ],
   "require": {
@@ -23,7 +23,7 @@
       "src/Support/helpers.php"
     ],
     "psr-4": {
-      "Baconfy\\Analytics\\": "src/"
+      "Rdehnhardt\\Analytics\\": "src/"
     }
   },
   "minimum-stability": "stable"
